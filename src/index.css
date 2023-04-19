@@ -7,6 +7,7 @@ body {
   font-family: 'Kalam', cursive;
   color: blue;
   display: flex;
+  font-size: larger;
   justify-content: center;
   max-width: 1200px; 
 }
@@ -22,6 +23,17 @@ body {
   border-radius: 50%;
   justify-content: center;
   pointer-events: none;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 3rem;
+  font-family: 'Kalam', cursive;
+  font-size: larger;
+  margin: 5rem 1rem;
+  cursor: pointer;
+  background-color: green;
+  color: blue;
 }
 
 .app {
