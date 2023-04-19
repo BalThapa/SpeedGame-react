@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import "./index.css";
+import Circle from "./components/Circle";
+import Header from "./components/Header";
+import Modal from "./components/Modal";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    circles: [1, 2, 3, 4],
+  };
+  render() {
+    return (
+      <div className="app">
+        <div>
+          <Header />
+        </div>
+        <div className="circle-Container">
+          {this.state.circles.map((circle) => (
+            <Circle />
+          ))}
+        </div>
+
+        <div>
+          <Modal />
+        </div>
+
+        <div>
+          <button id="start">Start Game</button>
+          <button id="end">End Game</button>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
