@@ -1,11 +1,12 @@
 import React from 'react';
+import "../index.css"
 
 
-const Circle = () => {
+const Circle = (props) => {
     return (
       
-        <div className="circle">   
-             <p></p>
+        <div className="circle" onClick={props.click}>   
+           
         </div>
     );
 };

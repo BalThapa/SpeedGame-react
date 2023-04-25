@@ -1,11 +1,12 @@
 import React from 'react';
+import "../index.css"
 
-
-const Header = () => {
+const Header = (props) => {
     return (
         <div>
-            <h1>Speed Game</h1>
-            <p>Your Score:0</p>
+         
+         <h1>Speed Game</h1>
+            
         </div>
     );
 };

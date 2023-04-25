@@ -46,3 +46,41 @@ button {
 .circle-Container{
   display: flex;
 }
+
+.modal {
+  background-color: rgb(251, 208, 145);
+  border: none;
+  border-radius: 2rem;
+  padding-top: 2rem;
+  width: 40%;
+  height: 35%;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.modal button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: transparent;
+  margin: 0.5rem;
+}
+
+.overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #343232;
+  visibility: hidden;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+}
+
+.modal .score {
+  font-size: larger;
+}
