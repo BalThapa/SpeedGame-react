@@ -17,27 +17,41 @@ class App extends Component {
   getRandomInt = (min, max) =>
     Math.floor(Math.random() * (max - min + 1)) + min;
 
-  handleClick = (circle, i) => {
-    const { circles, score, counter } = this.state.circle;
-
+  handleClick = (i) => {
     if (i === this.state.active) {
-      const newScore = score + 10;
+      this.setState({ score: this.state.score + 10 });
+      this.newCircles(this.state.active);
+      this.setState({ counter: 0 });
+    } else {
+      this.endGame();
+    }
+    counter -= 1;
+    score += 10;
+    scoreSpan.textContent = score;
+  };
 
-      this.setState({
-        circles: newCircles,
-        score: newScore,
-      });
+  startGame = () => {
+    if (counter >= 3) {
+      return endGame();
+    }
+    enableCircles();
+    const nextActive = pickNew(active);
 
-      if (counter < 3) {
-        setTimeout(() => {
-          this.setState({
-            counter: this.counter,
-          });
-          clearTimeout();
-        });
-      } else {
-        this.endGame();
+    circles[nextActive].classList.toggle("active");
+    circles[active].classList.remove("active");
+
+    active = nextActive;
+
+    timer = setTimeout(startGame, pace);
+
+    pace -= 10;
+    rounds++;
+    function pickNew(active) {
+      const nextActive = getRandomInt(0, 3);
+      if (nextActive !== active) {
+        return nextActive;
       }
+      return pickNew(active);
     }
   };
 
