@@ -4,57 +4,59 @@ import Circle from "./components/Circle";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
 
+const getRanInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
+
 class App extends Component {
   state = {
     circles: [1, 2, 3, 4],
     score: 0,
     counter: 0,
+    active: 0,
     pace: 1000,
-    timer: null,
+    timer: "",
     modal: false,
   };
-
-  getRandomInt = (min, max) =>
-    Math.floor(Math.random() * (max - min + 1)) + min;
 
   handleClick = (i) => {
     if (i === this.state.active) {
       this.setState({ score: this.state.score + 10 });
-      this.newCircles(this.state.active);
-      this.setState({ counter: 0 });
     } else {
       this.endGame();
     }
-    counter -= 1;
-    score += 10;
-    scoreSpan.textContent = score;
   };
 
   startGame = () => {
-    if (counter >= 3) {
-      return endGame();
-    }
-    enableCircles();
-    const nextActive = pickNew(active);
-
-    circles[nextActive].classList.toggle("active");
-    circles[active].classList.remove("active");
-
-    active = nextActive;
-
-    timer = setTimeout(startGame, pace);
-
-    pace -= 10;
-    rounds++;
-    function pickNew(active) {
-      const nextActive = getRandomInt(0, 3);
-      if (nextActive !== active) {
-        return nextActive;
-      }
-      return pickNew(active);
-    }
+    this.pickNew();
   };
 
+  endGame = () => {
+    clearInterval(this.timer);
+    this.setState({
+      score: 0,
+      active: 0,
+      timer: clearTimeout(this.state.timer),
+    });
+    this.timer = setTimeout(this.pickNew, this.state.pace);
+  };
+
+  pickNew = () => {
+    if (this.state.counter >= 3) {
+      return this.endGame();
+    }
+
+    let nextActive;
+
+    do {
+      nextActive = getRanInt(0, 3);
+    } while (nextActive === this.state.active);
+
+    this.setState({
+      active: nextActive,
+      pace: this.state.pace - 10,
+      counter: this.state.counter + 1,
+    });
+  };
   render() {
     const { score, modal } = this.state;
     return (
@@ -67,11 +69,12 @@ class App extends Component {
         </div>
 
         <div className="circle-Container">
-          {this.state.circles.map((circle) => (
+          {this.state.circles.map((circle, i) => (
             <Circle
-              key={circle.id}
+              key={i}
               active={circle.active}
-              Onclick={this.handleClick(circle.id)}
+              number={i}
+              click={this.handleClick(circle.active)}
             />
           ))}
         </div>
