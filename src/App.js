@@ -4,8 +4,9 @@ import Circle from "./components/Circle";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
 
-const getRanInt = (min, max) =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
+const getRanInt = (min, max) => {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
 class App extends Component {
   state = {
@@ -20,56 +21,62 @@ class App extends Component {
 
   timer;
 
-  handleClick = (i) => {
-    console.log(i);
-    if (i !== this.state.active) {
-      this.endGameHandler();
-    } else {
-      this.setState({
-        score: this.state.score + 10,
-        counter: 0,
-      });
+  handleClick = (circle) => {
+    console.log("circle clicked,i");
+    if (this.state.active !== circle) {
+      return this.endGameHandler();
     }
+    this.setState({
+      score: this.state.score + 10,
+      counter: this.state.counter - 1,
+    });
   };
 
   startGameHandler = () => {
     console.log("start");
     this.setState({
-      playStart: true,
+      playStart: !this.state.playStart,
     });
+    this.randomItem();
   };
 
   endGameHandler = () => {
     console.log("end");
     clearTimeout(this.timer);
     this.setState({
-      score: 0,
-      active: 0,
-      dispalyModal: true,
+      displayModal: !this.state.displayModal,
     });
   };
 
-  newitem = () => {
+  randomItem = () => {
+    if (this.state.counter >= 5) {
+      return this.endGameHandler();
+    }
     let nextActive;
 
     do {
-      nextActive = getRanInt(0, 3);
+      // nextActive = getRanInt(0, 3);
+      nextActive = getRanInt(1, this.state.circles.length); //FOR LONGER ARRAY
     } while (nextActive === this.state.active);
-    if (this.state.counter >= 3) {
-      return this.endGameHandler();
-    }
 
     this.setState({
       active: nextActive,
-      pace: this.state.pace - 10,
+      pace: this.state.pace - 10, //it makes faster after every click, if * 0.95 for more faster.
       counter: this.state.counter + 1,
     });
-
-    this.timer = setTimeout(this.newitem, this.state.pace);
+    console.log("active");
+    this.timer = setTimeout(this.randomItem, this.state.pace);
   };
 
   handleClose = () => {
-    window.location.reload(); // NO RELOAD IN REACT
+    this.setState({
+      displayModal: !this.state.displayModal,
+      score: 0,
+      counter: 0,
+      pace: 1000,
+      playStart: this.state.playStart,
+    });
+    // window.location.reload(); // NO RELOAD IN REACT
   };
 
   render() {
@@ -77,39 +84,36 @@ class App extends Component {
       <div className="app">
         <div>
           <Header />
-          <p>
-            Your Score: <span>{this.state.score}</span>
-          </p>
+          <p>Your Score:{this.state.score}</p>
         </div>
 
         <div className="circle-Container">
-          {this.state.circles.map((i) => (
+          {this.state.circles.map((circle) => (
             <Circle
-              key={i}
-              active={this.state.active}
-              index={i}
-              click={() => this.handleClick(i)}
+              key={circle}
+              active={this.state.active === circle}
+              click={() => this.handleClick(circle)}
+              playStatus={this.state.playStart}
             />
           ))}
         </div>
 
         <div>
           {this.state.displayModal && (
-            <Modal
-              score={this.state.score}
-              close={this.handleClose}
-              endText={this.state.score}
-            />
+            <Modal score={this.state.score} close={this.handleClose} />
           )}
         </div>
 
         <div>
-          <button id="start" onClick={this.startGameHandler}>
-            Start Game
-          </button>
-          <button id="end" onClick={this.endGameHandler}>
-            End Game
-          </button>
+          {this.state.playStart ? (
+            <button id="end" onClick={this.endGameHandler}>
+              End Game
+            </button>
+          ) : (
+            <button id="start" onClick={this.startGameHandler}>
+              Start Game
+            </button>
+          )}
         </div>
       </div>
     );
