@@ -22,7 +22,7 @@ body {
   margin: 2rem;
   border-radius: 50%;
   justify-content: center;
-  pointer-events: none;
+
 }
 
 button {
@@ -83,4 +83,10 @@ button {
 
 .modal .score {
   font-size: larger;
+}
+
+.circle.active {
+ background-color: blue;
+  background-size: cover;
+  background-position: center;
 }

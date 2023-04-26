@@ -14,51 +14,65 @@ class App extends Component {
     counter: 0,
     active: 0,
     pace: 1000,
-    timer: "",
-    modal: false,
+    displayModal: false,
+    playStart: false,
   };
 
+  timer;
+
   handleClick = (i) => {
-    if (i === this.state.active) {
-      this.setState({ score: this.state.score + 10 });
+    console.log(i);
+    if (i !== this.state.active) {
+      this.endGameHandler();
     } else {
-      this.endGame();
+      this.setState({
+        score: this.state.score + 10,
+        counter: 0,
+      });
     }
   };
 
-  startGame = () => {
-    this.pickNew();
+  startGameHandler = () => {
+    console.log("start");
+    this.setState({
+      playStart: true,
+    });
   };
 
-  endGame = () => {
-    clearInterval(this.timer);
+  endGameHandler = () => {
+    console.log("end");
+    clearTimeout(this.timer);
     this.setState({
       score: 0,
       active: 0,
-      timer: clearTimeout(this.state.timer),
+      dispalyModal: true,
     });
-    this.timer = setTimeout(this.pickNew, this.state.pace);
   };
 
-  pickNew = () => {
-    if (this.state.counter >= 3) {
-      return this.endGame();
-    }
-
+  newitem = () => {
     let nextActive;
 
     do {
       nextActive = getRanInt(0, 3);
     } while (nextActive === this.state.active);
+    if (this.state.counter >= 3) {
+      return this.endGameHandler();
+    }
 
     this.setState({
       active: nextActive,
       pace: this.state.pace - 10,
       counter: this.state.counter + 1,
     });
+
+    this.timer = setTimeout(this.newitem, this.state.pace);
   };
+
+  handleClose = () => {
+    window.location.reload(); // NO RELOAD IN REACT
+  };
+
   render() {
-    const { score, modal } = this.state;
     return (
       <div className="app">
         <div>
@@ -69,12 +83,12 @@ class App extends Component {
         </div>
 
         <div className="circle-Container">
-          {this.state.circles.map((circle, i) => (
+          {this.state.circles.map((i) => (
             <Circle
               key={i}
-              active={circle.active}
-              number={i}
-              click={this.handleClick(circle.active)}
+              active={this.state.active}
+              index={i}
+              click={() => this.handleClick(i)}
             />
           ))}
         </div>
@@ -82,18 +96,18 @@ class App extends Component {
         <div>
           {this.state.displayModal && (
             <Modal
-              score={score}
-              isOpen={modal}
-              onClose={() => this.resetGame}
+              score={this.state.score}
+              close={this.handleClose}
+              endText={this.state.score}
             />
           )}
         </div>
 
         <div>
-          <button id="start" onClick={() => this.startGame()}>
+          <button id="start" onClick={this.startGameHandler}>
             Start Game
           </button>
-          <button id="end" onClick={() => this.endGame()}>
+          <button id="end" onClick={this.endGameHandler}>
             End Game
           </button>
         </div>

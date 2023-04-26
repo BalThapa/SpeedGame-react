@@ -5,7 +5,7 @@ import "../index.css"
 const Circle = (props) => {
     return (
       
-        <div className="circle" onClick={props.click}>   
+        <div className={`circle ${props.activ ? 'active' :''}`} onClick={props.click}>   
            
         </div>
     );

@@ -6,9 +6,9 @@ const Modal = (props) => {
         <div className='overlay'>
            <div className='modal'>
            <p>Oops! Game Over 😳</p>
-                <p>Your Score was: <span class="scoreEnd">0</span></p>
-                <p><span id="endText"></span></p>
-                <button id="close" onClick={props.click}>X</button>
+            <p>Your Score was: {props.score}</p>
+            <p><span>{props.endText}</span></p>
+            <button id="close" onClick={props.close}>X</button>
            </div>
         </div>
     );
