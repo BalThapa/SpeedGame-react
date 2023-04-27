@@ -68,13 +68,13 @@ class App extends Component {
     this.timer = setTimeout(this.randomItem, this.state.pace);
   };
 
-  handleClose = () => {
+  handleReplay = () => {
     this.setState({
-      displayModal: !this.state.displayModal,
+      displayModal: false,
       score: 0,
       counter: 0,
       pace: 1000,
-      playStart: this.state.playStart,
+      playStart: false,
     });
     // window.location.reload(); // NO RELOAD IN REACT
   };
@@ -100,19 +100,19 @@ class App extends Component {
 
         <div>
           {this.state.displayModal && (
-            <Modal score={this.state.score} close={this.handleClose} />
+            <Modal
+              score={this.state.score}
+              replay={this.handleReplay}
+              {...this.state}
+            />
           )}
         </div>
 
         <div>
           {this.state.playStart ? (
-            <button id="end" onClick={this.endGameHandler}>
-              End Game
-            </button>
+            <button onClick={this.endGameHandler}>End Game.</button>
           ) : (
-            <button id="start" onClick={this.startGameHandler}>
-              Start Game
-            </button>
+            <button onClick={this.startGameHandler}>Start Game</button>
           )}
         </div>
       </div>

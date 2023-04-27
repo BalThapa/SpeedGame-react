@@ -2,7 +2,7 @@
 
 body {
   margin: 0;
-  background-image: url("./assets/pond.avif");
+  background-image: url("./assets/images/pond.avif")  ;
   background-size: cover;
   font-family: 'Kalam', cursive;
   color: blue;
@@ -17,7 +17,7 @@ body {
 .circle {
   height: 10rem;
   width: 10rem;
-  background-color: white;
+  background-color: none;
   border: solid;
   display: flex;
   align-items: center;
@@ -64,21 +64,21 @@ button {
 
 .modal {
   background-color: rgb(251, 208, 145);
+  font-size: larger;
+  font-weight: bold;
   border: none;
   border-radius: 2rem;
-  padding-top: 2rem;
+  padding: 2rem;
   width: 40%;
-  height: 35%;
+  display: grid;
   align-items: center;
   justify-content: center;
   position: relative;
 }
 
 .modal button {
-  position: absolute;
-  top: 0;
-  right: 0;
-  background-color: transparent;
+  border:none;
+  background-color: rgb(255, 255, 255);
   margin: 0.5rem;
 }
 
@@ -86,8 +86,8 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #343232;
-  visibility: hidden;
+  background-color: #428554;
+  opacity: 90%;
   position: fixed;
   height: 100%;
   width: 100%;
@@ -101,7 +101,7 @@ button {
 }
 
 .circle.active {
- background-color: blue;
+  background-image: url("./assets/images/frog.jpg");
   background-size: cover;
   background-position: center;
 }

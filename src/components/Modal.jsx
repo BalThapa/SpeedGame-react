@@ -2,26 +2,27 @@ import React from 'react';
 import "../index.css";
 
 const Modal = (props) => {
-    /*let endText='';
-        if (props.score === 0) {
-        endText.textContent = "You need more practice. Try again.";
-      } else if (props.score === 0 || props.score < 20) {
-        endText.textContent = "Moving fast leads to catch more frogs.";
-      } else if (props.score === 20 || props.score < 40) {
-        endText.textContent = "You can do better.";
-      } else if (props.score === 40 || props.score < 80) {
-        endText.textContent = "Still more frogs are in the pond.";
+    let endText='';
+        if (props.score <= 10) {
+        endText = "You need more practice. Try again.";
+      } else if (props.score === 0 || props.score < 30) {
+        endText = "Moving fast leads to catch more frogs.";
+      } else if (props.score === 30 || props.score < 60) {
+        endText = "You can do better.";
+      } else if (props.score === 60 || props.score < 100) {
+        endText = "Still more frogs are in the pond.";
       } else {
-        endText.textContent = "You are a proffessional frog catcher.";
-      }*/
+        endText = "You are a proffessional frog catcher.";
+      }
 
     return (
         <div className='overlay'>
            <div className='modal'>
-           <p>Oops! Game Over 😳</p>
+          <h2>Oops! Game Over 😳</h2> 
             <p>Your Score was: {props.score}</p>
-            <p><span>{props.endText}</span></p>
-            <button id="close" onClick={props.close}>X</button>
+            <p><span>{endText}</span></p>
+            <button className='playAgain' onClick={props.replay}>Play Again</button>
+            <button className='exit' onClick={props.exit}>Exit Game</button>
            </div>
         </div>
     );
