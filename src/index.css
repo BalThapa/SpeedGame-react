@@ -14,94 +14,12 @@ body {
   -moz-oxs-font-smoothing:grayscale;
 }
 
-.circle {
-  height: 10rem;
-  width: 10rem;
-  background-color: none;
-  border: solid;
-  display: flex;
-  align-items: center;
-  margin: 2rem;
-  border-radius: 50%;
-  justify-content: center;
-
-}
-
-/*i :first-child{
-  background-color: red;
-}
-.circle :nth-child(2){
-  background-color: yellow;
-}
-.circle :nth-child(3){
-  background-color: green;
-}
-.circle :nth-child(4){
-  background-color: black;
-}*/
-
-button {
-  padding: 0.5rem 1rem;
-  border-radius: 3rem;
-  font-family: 'Kalam', cursive;
-  font-size: larger;
-  margin: 5rem 1rem;
-  cursor: pointer;
-  background-color: green;
-  color: blue;
-}
-
-.app {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-}
-.circle-Container{
-  display: flex;
-}
-
-.modal {
-  background-color: rgb(251, 208, 145);
-  font-size: larger;
+p {
+  font-size:x-large;
   font-weight: bold;
-  border: none;
-  border-radius: 2rem;
-  padding: 2rem;
-  width: 40%;
-  display: grid;
-  align-items: center;
-  justify-content: center;
-  position: relative;
 }
 
-.modal button {
-  border:none;
-  background-color: rgb(255, 255, 255);
-  margin: 0.5rem;
-}
 
-.overlay {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #428554;
-  opacity: 90%;
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
-  z-index: 100;
-}
 
-.modal .score {
-  font-size: larger;
-}
 
-.circle.active {
-  background-image: url("./assets/images/frog.jpg");
-  background-size: cover;
-  background-position: center;
-}
+

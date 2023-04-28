@@ -1,0 +1,42 @@
+.modal {
+    background-color: rgb(251, 208, 145);
+    font-size: larger;
+    font-weight: bold;
+    border: none;
+    border-radius: 2rem;
+    padding: 2rem;
+    width: 40%;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+  
+.modal button {
+    border:none;
+    background-color: rgb(255, 255, 255);
+    margin: 0.5rem;
+}
+  
+.overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #428554;
+    opacity: 95%;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+  
+.modal .score {
+    font-size: larger;
+}
+  
+a {
+  text-decoration: none;
+  color: blue;
+}

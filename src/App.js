@@ -1,8 +1,16 @@
 import React, { Component } from "react";
-import "./index.css";
+import "./app.css";
 import Circle from "./components/Circle";
-import Header from "./components/Header";
+import Modal2 from "./components/Modal2";
 import Modal from "./components/Modal";
+
+import frogquack from "./assets/sounds/frogquack.mp3";
+import gameStart from "./assets/sounds/gameStart.mp3";
+import gamefinish from "./assets/sounds/gamefinish.wav";
+
+let clickfrog = new Audio(frogquack);
+let gameStartSound = new Audio(gameStart);
+let gameFinishSound = new Audio(gamefinish);
 
 const getRanInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -15,14 +23,17 @@ class App extends Component {
     counter: 0,
     active: 0,
     pace: 1000,
+    level: 0,
     displayModal: false,
+    displayModal2: false,
     playStart: false,
+    clickedlevel: false,
   };
 
   timer;
 
   handleClick = (circle) => {
-    console.log("circle clicked,i");
+    this.frogquackPlay();
     if (this.state.active !== circle) {
       return this.endGameHandler();
     }
@@ -32,8 +43,16 @@ class App extends Component {
     });
   };
 
+  frogquackPlay = () => {
+    if (clickfrog.paused) {
+      clickfrog.play();
+    } else {
+      clickfrog.currentTime = 0;
+    }
+  };
+
   startGameHandler = () => {
-    console.log("start");
+    gameStartSound.play();
     this.setState({
       playStart: !this.state.playStart,
     });
@@ -41,10 +60,17 @@ class App extends Component {
   };
 
   endGameHandler = () => {
-    console.log("end");
+    gameStartSound.pause();
+    gameFinishSound.play();
     clearTimeout(this.timer);
     this.setState({
       displayModal: !this.state.displayModal,
+    });
+  };
+
+  levelHandler = () => {
+    this.setState({
+      displayModal2: !this.state.displayModal2,
     });
   };
 
@@ -64,7 +90,6 @@ class App extends Component {
       pace: this.state.pace - 10, //it makes faster after every click, if * 0.95 for more faster.
       counter: this.state.counter + 1,
     });
-    console.log("active");
     this.timer = setTimeout(this.randomItem, this.state.pace);
   };
 
@@ -74,17 +99,39 @@ class App extends Component {
       score: 0,
       counter: 0,
       pace: 1000,
+      active: 0,
       playStart: false,
     });
     // window.location.reload(); // NO RELOAD IN REACT
+  };
+
+  gameSpeed = (speed) => {
+    if (speed === "beginner") {
+      this.setState({
+        pace: this.state.pace * 0.95,
+      });
+    } else if (speed === "intermediate") {
+      this.setState({
+        pace: this.state.pace * 0.85,
+      });
+    } else if (speed === "proffessional") {
+      this.setState({
+        pace: this.state.pace * 0.75,
+      });
+    }
+    this.setState({
+      speed,
+      clickedlevel: true,
+    });
   };
 
   render() {
     return (
       <div className="app">
         <div>
-          <Header />
-          <p>Your Score:{this.state.score}</p>
+          <h1>SPEED GAME II</h1>
+          <h2>LEVEL:{this.state.level}</h2>
+          <p>SCORE:{this.state.score}</p>
         </div>
 
         <div className="circle-Container">
@@ -108,11 +155,18 @@ class App extends Component {
           )}
         </div>
 
+        <div>{this.state.displayModal2 && <Modal2 />}</div>
+
         <div>
           {this.state.playStart ? (
             <button onClick={this.endGameHandler}>End Game.</button>
           ) : (
             <button onClick={this.startGameHandler}>Start Game</button>
+          )}
+          {this.state.playStart ? (
+            this.state.displayModal2
+          ) : (
+            <button onClick={this.levelHandler}>Level</button>
           )}
         </div>
       </div>

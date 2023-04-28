@@ -1,5 +1,7 @@
 import React from 'react';
-import "../index.css";
+import "./modal.css";
+
+
 
 const Modal = (props) => {
     let endText='';
@@ -22,7 +24,8 @@ const Modal = (props) => {
             <p>Your Score was: {props.score}</p>
             <p><span>{endText}</span></p>
             <button className='playAgain' onClick={props.replay}>Play Again</button>
-            <button className='exit' onClick={props.exit}>Exit Game</button>
+            <button className='exit'>
+              <a href='https://www.google.com/'>Exit Game</a></button>
            </div>
         </div>
     );
