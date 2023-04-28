@@ -74,6 +74,8 @@ class App extends Component {
     });
   };
 
+  beginnerhandler = () => {};
+
   randomItem = () => {
     if (this.state.counter >= 5) {
       return this.endGameHandler();
