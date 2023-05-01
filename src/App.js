@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "./app.css";
 import Circle from "./components/Circle";
-import Modal2 from "./components/Modal2";
 import Modal from "./components/Modal";
 
 import frogquack from "./assets/sounds/frogquack.mp3";
 import gameStart from "./assets/sounds/gameStart.mp3";
 import gamefinish from "./assets/sounds/gamefinish.wav";
+import Modal2 from "./components/Modal2";
 
 let clickfrog = new Audio(frogquack);
 let gameStartSound = new Audio(gameStart);
@@ -23,11 +23,10 @@ class App extends Component {
     counter: 0,
     active: 0,
     pace: 1000,
-    level: 0,
-    displayModal: false,
+    level: "",
     displayModal2: false,
+    displayModal: false,
     playStart: false,
-    clickedlevel: false,
   };
 
   timer;
@@ -59,6 +58,39 @@ class App extends Component {
     this.randomItem();
   };
 
+  beginnerHandler = () => {
+    this.setState({
+      displayModal2: !this.state.displayModal2,
+      score: 0,
+      counter: 0,
+      pace: 1200,
+      playStart: false,
+      level: "Beginner",
+    });
+  };
+
+  intermediateHandler = () => {
+    this.setState({
+      displayModal2: !this.state.displayModal2,
+      score: 0,
+      counter: 0,
+      pace: 900,
+      playStart: false,
+      level: "Intermediate",
+    });
+  };
+
+  proffessionalHandler = () => {
+    this.setState({
+      displayModal2: !this.state.displayModal2,
+      score: 0,
+      counter: 0,
+      pace: 700,
+      playStart: false,
+      level: "Proffessional",
+    });
+  };
+
   endGameHandler = () => {
     gameStartSound.pause();
     gameFinishSound.play();
@@ -67,14 +99,6 @@ class App extends Component {
       displayModal: !this.state.displayModal,
     });
   };
-
-  levelHandler = () => {
-    this.setState({
-      displayModal2: !this.state.displayModal2,
-    });
-  };
-
-  beginnerhandler = () => {};
 
   randomItem = () => {
     if (this.state.counter >= 5) {
@@ -89,7 +113,7 @@ class App extends Component {
 
     this.setState({
       active: nextActive,
-      pace: this.state.pace - 10, //it makes faster after every click, if * 0.95 for more faster.
+      pace: this.state.pace * 0.95, //it makes faster after every click,  -10 also does but slower.
       counter: this.state.counter + 1,
     });
     this.timer = setTimeout(this.randomItem, this.state.pace);
@@ -103,27 +127,14 @@ class App extends Component {
       pace: 1000,
       active: 0,
       playStart: false,
+      level: "",
     });
     // window.location.reload(); // NO RELOAD IN REACT
   };
 
-  gameSpeed = (speed) => {
-    if (speed === "beginner") {
-      this.setState({
-        pace: this.state.pace * 0.95,
-      });
-    } else if (speed === "intermediate") {
-      this.setState({
-        pace: this.state.pace * 0.85,
-      });
-    } else if (speed === "proffessional") {
-      this.setState({
-        pace: this.state.pace * 0.75,
-      });
-    }
+  levelHandler = () => {
     this.setState({
-      speed,
-      clickedlevel: true,
+      displayModal2: !this.state.displayModal2,
     });
   };
 
@@ -132,8 +143,8 @@ class App extends Component {
       <div className="app">
         <div>
           <h1>SPEED GAME II</h1>
-          <h2>LEVEL:{this.state.level}</h2>
-          <p>SCORE:{this.state.score}</p>
+          <h2>LEVEL: {this.state.level}</h2>
+          <p>SCORE: {this.state.score}</p>
         </div>
 
         <div className="circle-Container">
@@ -157,18 +168,24 @@ class App extends Component {
           )}
         </div>
 
-        <div>{this.state.displayModal2 && <Modal2 />}</div>
+        <div>
+          {this.state.displayModal2 && (
+            <Modal2
+              beginner={this.beginnerHandler}
+              intermediate={this.intermediateHandler}
+              proffessional={this.proffessionalHandler}
+            />
+          )}
+        </div>
 
         <div>
           {this.state.playStart ? (
             <button onClick={this.endGameHandler}>End Game.</button>
           ) : (
-            <button onClick={this.startGameHandler}>Start Game</button>
-          )}
-          {this.state.playStart ? (
-            this.state.displayModal2
-          ) : (
-            <button onClick={this.levelHandler}>Level</button>
+            [
+              <button onClick={this.startGameHandler}>Start Game</button>,
+              <button onClick={this.levelHandler}>Levels</button>,
+            ]
           )}
         </div>
       </div>
