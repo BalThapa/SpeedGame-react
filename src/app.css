@@ -11,8 +11,6 @@
 }
 
 button {
-    display: flex;
-    justify-content: center;
     padding: 0.5rem 1rem;
     border-radius: 3rem;
     font-family: 'Kalam', cursive;
@@ -21,7 +19,6 @@ button {
     cursor: pointer;
     background-color: green;
     color: blue;
-    width: 10rem;
 }
 
 .app {
@@ -29,13 +26,6 @@ button {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-top: -50px;
-    margin-left: -50px;
-    width: 100px;
-    height: 100px;
 }
 
 .circle-Container{
