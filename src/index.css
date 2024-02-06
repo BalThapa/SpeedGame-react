@@ -7,11 +7,12 @@ body {
   font-family: 'Kalam', cursive;
   color: blue;
   display: flex;
+  justify-items: center;
   font-size: larger;
   justify-content: center;
   max-width: 1200px; 
   -webkit-font-smoothing: antialiased;
-  -moz-oxs-font-smoothing:grayscale;
+  -moz-oxs-font-smoothing: grayscale;
 }
 
 p {
