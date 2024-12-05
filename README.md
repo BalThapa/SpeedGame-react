@@ -1,4 +1,4 @@
-# About Speed game app
+## About Speed game app
 
 This project is a second version or refactoring of the Speed game which was creaated using vanila javascript. Here react method is used which is way more simpler and shorter.
 
